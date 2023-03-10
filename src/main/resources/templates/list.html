@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="fragments/fragments-general :: head"></div>        
+    <body>
+        <!-- cabecera de la aplicación -->    
+		<div th:replace="fragments/fragments-general :: header"></div>  
+
+        <!-- mensajes -->
+		<div th:replace="fragments/fragments-general :: message-success"></div>
+		<div th:replace="fragments/fragments-general :: message-danger"></div>
+
+		<!-- cuerpo de la página -->  
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-md-12">
+
+					<!-- cabecera -->
+					<h2 >[[${pageTitle}]]</h2>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<a href="/todos/new" class="btn btn-success" role="button"><i class="bi bi-plus"></i> Añadir</a>
+					</div>
+					<hr/>
+
+					<!-- buscador -->
+				    <div class="my-12">
+						<div class="row">
+				      		<form th:action="@{/todos}">				       
+				          		<div class="d-grid gap-2 d-md-flex justify-content-md-left">
+				            		<div class="search">
+				              			<i class="fa fa-search"></i>
+				              			<input id="keyword" type="search" name="keyword" th:value="${keyword}" 
+				              			required class="form-control"
+				                		placeholder="Enter keyword">
+				              			<button type="submit" class="btn btn-secondary">Search</button>
+				            		</div>
+				            		
+				          		</div>
+				          		<div class="col-md-6 mt-2">
+				            		<button id="btnClear" class="btn btn-info">Clear</button>
+				          		</div>				        
+				    		</form>  
+				    	</div>
+				    </div>
+
+					<!-- tabla de ToDo(s) -->	
+				    <div th:if="${todolist.size() > 0}">
+						<table class="table table-striped table-responsive-md">
+				        	<thead class="thead-light">
+				          		<tr>
+				            		<th scope="col">Id</th>
+				            		<th scope="col">Title</th>
+				            		<th scope="col">Description</th>
+				             		<th scope="col">Actions</th>
+								</tr>
+				        	</thead>
+				        	<tbody>
+				          		<tr th:each="todo : ${todolist}">
+				            		<th scope="row">[[${todo.id}]]</th>
+				            		<td>[[${todo.title}]]</td>
+				            		<td>[[${todo.description}]]</td>
+				            		<td>
+				              			<a th:href="@{'/todo/' + ${todo.id}}" 
+				              				title="Edit this Todo"
+				                			class="fa-regular fa-pen-to-square icon-dark"></a>
+				              				&nbsp;
+				              				<a th:href="@{'/todo/delete/' + ${todo.id}}" 
+				              				th:todoTitle="${todo.title}" 
+				              				id="btnDelete"
+				                			title="Delete this Todo" 
+				                			class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+				            		</td>
+				          		</tr>
+				        	</tbody>
+						</table>
+
+						<!-- paginacion --> 
+						<div th:replace="fragments/fragments-pagination :: pagination"></div>
+				    </div>
+
+				    <div class="" th:unless="${todolist.size() > 0}">
+				      <span>No ToDo(s) found!</span>
+				    </div>   					
+				</div>
+			</div>		
+		</div>
+
+        <!-- pie de la aplicación -->
+		<div th:replace="fragments/fragments-general :: footer"></div>  
+		
+		<!-- scripts: eliminar todo -->
+	  	<script type="text/javascript">
+		    $(document).ready(function () {
+		      $(".btn-delete").on("click", function (e) {
+		        e.preventDefault();
+		        link = $(this);
+		
+		        todoTitle = link.attr("todoTitle");
+		        $("#yesBtn").attr("href", link.attr("href"));
+		        $("#confirmText").html("Do you want to delete the Todo \<strong\>" + todoTitle + "\<\/strong\>?");
+		        $("#confirmModal").modal();
+		      });
+		
+		      $("#btnClear").on("click", function (e) {
+		        e.preventDefault();
+		        $("#keyword").text("");
+		        window.location = "[[@{/todos}]]";
+		      });
+		    });
+	  	</script>
+		
+    </body>
+</html>

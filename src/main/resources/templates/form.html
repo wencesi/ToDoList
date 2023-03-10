@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="fragments/fragments-general :: head"></div>        
+    <body>
+        <!-- cabecera de la aplicación -->    
+		<div th:replace="fragments/fragments-general :: header"></div>  
+
+        <!-- mensajes -->
+		<div th:replace="fragments/fragments-general :: message-success"></div>
+		<div th:replace="fragments/fragments-general :: message-danger"></div>
+
+		<!-- cuerpo de la página -->  
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-md-12">
+
+					<!-- cabecera -->
+					<h2 >[[${pageTitle}]]</h2>
+					<hr/>
+					<!-- buscador : no hay-->
+					<!-- Formulario de nuevo de ToDo(s) -->	
+					<form th:action="@{/todos/save}" method="post" th:object="${todo}">
+
+						<input type="hidden" th:field="*{id}" />
+
+						<div class="mb-3">
+							<label for="title" class="form-label">Title</label>
+							<input type="text" class="form-control" id="title" aria-describedby="Title">
+					    	<div id="titleHelp" class="form-text">ToDo title.</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="description" class="form-label">Description</label>
+							<textarea class="form-control" id="description" rows="3"></textarea>
+					    	<div id="descriptionHelp" class="form-text">ToDo description.</div>
+						</div>					  
+
+						<input type="submit" value="Submit" class="btn btn-primary" />
+						<input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary" />
+					</form>
+
+				</div>
+			</div>		
+		</div>
+
+        <!-- pie de la aplicación -->
+		<div th:replace="fragments/fragments-general :: footer"></div>  
+		
+		<!-- scripts: xx -->
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$("#btnCancel").on("click", function () {
+					window.location = "[[@{/todos}]]";
+				});
+			});
+		</script>		
+		
+    </body>
+</html>

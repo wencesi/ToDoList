@@ -1,0 +1,23 @@
+insert into todo(id,title,description) values (1,'t1','d1');
+insert into todo(id,title,description) values (2,'t2','d2');
+insert into todo(id,title,description) values (3,'t3','d3');
+insert into todo(id,title,description) values (4,'t4','d4');
+insert into todo(id,title,description) values (5,'t5','d5');
+insert into todo(id,title,description) values (6,'t6','d6');
+insert into todo(id,title,description) values (7,'t7','d7');
+insert into todo(id,title,description) values (8,'t8','d8');
+insert into todo(id,title,description) values (9,'t9','d9');
+insert into todo(id,title,description) values (10,'t10','d10');
+insert into todo(id,title,description) values (11,'t11','d11');
+insert into todo(id,title,description) values (12,'t12','d12');
+insert into todo(id,title,description) values (13,'t13','d13');
+insert into todo(id,title,description) values (14,'t14','d14');
+insert into todo(id,title,description) values (15,'t15','d15');
+insert into todo(id,title,description) values (16,'t16','d16');
+insert into todo(id,title,description) values (17,'t17','d17');
+insert into todo(id,title,description) values (18,'t18','d18');
+insert into todo(id,title,description) values (19,'t19','d19');
+insert into todo(id,title,description) values (20,'t20','d20');
+insert into todo(id,title,description) values (21,'t21','d21');
+insert into todo(id,title,description) values (22,'t22','d22');
+

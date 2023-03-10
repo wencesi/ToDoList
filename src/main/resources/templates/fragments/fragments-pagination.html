@@ -1,0 +1,40 @@
+<!--  pagination -->
+<nav aria-label="Pagination" th:if="${totalPages gt 0}" th:fragment="pagination">
+	<ul class="pagination justify-content-center font-weight-medium">
+
+		<!-- izquierda -->
+		<li class="page-item" th:classappend="${currentPage eq 0} ? 'disabled'">
+			<a class="page-link svg-icon"
+				th:href="@{/todos?page={id}(id=${currentPage lt 1 ? 1 : currentPage-1})}"
+				aria-label="Previous"
+				title="Previous Page" rel="tooltip">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+
+		<!--  10 páginas -->
+		<li class="page-item" th:classappend="${i eq currentPage + 1} ? 'active'"
+			th:each="i : ${#numbers.sequence( currentPage , totalPages > 10 + currentPage ? currentPage + 10 : totalPages, 1)}">
+			<a class="page-link" 
+				th:href="@{/todos?page={id}(id=${i})}" th:text="${i}"
+				th:title="${'Page '+ i}"
+				rel="tooltip"></a>
+		</li>
+
+		<!-- puntos suspensivos -->
+		<li class="page-item disabled" th:if="${currentPage + 10 < totalPages}">
+			<a class="page-link svg-icon" href="#">
+				<span data-feather="more-horizontal" width="20" height="20">...</span>
+			</a>
+		</li>
+
+		<!--  derecha  -->
+		<li class="page-item" th:classappend="${currentPage + 1 eq totalPages} ? 'disabled'">
+			<a class="page-link svg-icon" th:href="@{/todos?page={id}(id=${currentPage + 1})}"
+				aria-label="Next"
+				title="Next Page" rel="tooltip">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</nav>
